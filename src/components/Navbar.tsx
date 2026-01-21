@@ -18,10 +18,9 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/20 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        {/* LEFT: avatar + nome (sempre aparece) */}
         <div className="flex items-center gap-3">
           <img
-            src={`${base}me.jpeg`} // coloque em public/avatar.jpg
+            src={`${base}me.jpeg`}
             alt="Foto de José Henrique"
             className="h-9 w-9 rounded-full border border-white/10 object-cover"
             loading="lazy"
@@ -35,7 +34,6 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* DESKTOP NAV */}
         <nav className="hidden items-center gap-6 md:flex">
           {links.map((l) => (
             <a
@@ -48,7 +46,6 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* RIGHT: CTA + HAMBURGUER */}
         <div className="flex items-center gap-3">
           <a
             href="#contato"
@@ -57,7 +54,6 @@ export function Navbar() {
             Falar comigo
           </a>
 
-          {/* Mobile toggle */}
           <button
             onClick={() => setOpen((v) => !v)}
             className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white md:hidden"
@@ -68,7 +64,6 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* MOBILE MENU */}
       {open && (
         <div className="border-t border-white/10 bg-black/30 backdrop-blur md:hidden">
           <div className="mx-auto max-w-6xl px-4 py-4">
