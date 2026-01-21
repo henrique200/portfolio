@@ -47,6 +47,7 @@ Variáveis de ambiente
 
 Crie um arquivo .env na raiz do projeto:
 VITE_WEB3FORMS_KEY=seu_token_aqui
+VITE_WEB3FORMS_URL=https://api.web3forms.com/submit
 
 
 Download do CV (robusto no deploy)
@@ -83,6 +84,7 @@ Recomendado: Vercel ou Netlify.
 Checklist rápido:
 
 Configure VITE_WEB3FORMS_KEY nas variáveis de ambiente do provedor
+Configure VITE_WEB3FORMS_URL nas variáveis de ambiente do provedor
 Garanta que cv.pdf e imagens estejam dentro de public/
 Se o deploy usar subpath, use import.meta.env.BASE_URL para links/arquivos do public
 

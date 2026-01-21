@@ -9,7 +9,7 @@ type FormValues = {
 
 type FormErrors = Partial<Record<keyof FormValues, string>>;
 
-type Status = "idle" | "success" | "error" | "rate_limited";
+type Status = "idle" | "success" | "error" | "rate_limited" | "config_missing";
 
 const contactSchema = yup.object({
   name: yup.string().required("Informe seu nome."),
@@ -32,6 +32,7 @@ export function ContactForm() {
   const [botcheck, setBotcheck] = useState(false);
 
   const accessKey = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
+  const apiUrl = import.meta.env.VITE_WEB3FORMS_URL as string | undefined;
   const hideMessageTimer = useRef<number | null>(null);
 
   function clearHideTimer() {
@@ -98,8 +99,8 @@ export function ContactForm() {
       return;
     }
 
-    if (!accessKey) {
-      setStatusWithAutoHide("error");
+    if (!accessKey || !apiUrl) {
+      setStatusWithAutoHide("config_missing", 6000);
       return;
     }
 
@@ -109,7 +110,7 @@ export function ContactForm() {
     try {
       localStorage.setItem(lastSubmitKey, String(now));
 
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -228,6 +229,12 @@ export function ContactForm() {
         {status === "error" ? (
           <p className="mt-2 text-xs text-white/70">
             Não consegui enviar agora. Tente novamente.
+          </p>
+        ) : null}
+        {status === "config_missing" ? (
+          <p className="mt-2 text-xs text-white/70">
+            Configuração ausente. Verifique VITE_WEB3FORMS_KEY e
+            VITE_WEB3FORMS_URL.
           </p>
         ) : null}
       </form>
